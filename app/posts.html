@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body ng-app='app'>
+	<div ng-controller="PostsCtrl" class='container'>
+		<h1>Najnowsze posty</h1>
+		<input ng-model='postBody' class='form-control' />
+		<button ng-click='addPost()' class='btn btn-default'>Dodaj post</button>
+		<ul class='list-group'>
+			<li ng-repeat="post in posts" class='list-group-item'>
+				<strong>@{{ post.username }}</strong>
+				<span>{{ post.body }}</span>
+			</li>
+		</ul>
+	</div>
+	
+	<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js'></script>
+	<script>
+		//Utworzenie modułu app
+		var app = angular.module('app', []) 
+		
+		//Utworzenie modułu PostCtrl
+		app.controller('PostsCtrl', function ($scope) {
+			//Utworzenie danych początkowych
+			$scope.posts = [
+				{
+					username: 'dickeyxxx',
+					body: 'Node rządzi!'
+				},
+				{
+					username: 'jeffdickey',
+					body: 'Testujemy AngularJS...'
+				}
+			]
+			
+			//Funkcja dodająca nowy post
+			$scope.addPost = function () {
+				if ($scope.postBody)
+				{
+					//Dodanie postu do tablicy $scope.posts
+					$scope.posts.unshift({
+						username: 'dickeyxxx',
+						body: $scope.postBody
+					})
+					$scope.postBody = null;
+				}
+			}
+			})
+			
+			
+			
+	</script>
+</body>
+</html>
