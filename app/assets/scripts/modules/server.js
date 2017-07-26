@@ -3,30 +3,14 @@ var bodyParser = require('body-parser');
 var Post = require('./models/post');
 
 var app = express();
-
 app.use(bodyParser.json());
-app.get('/api/posts', function (req, res, next) {
-	Post.find(function(err, posts) {
-		if (err) { return next(err); }
-		res.json(posts);
-	});
-});
+app.use('/api/posts', require('./controllers/api/posts'));
 
 app.listen(3000, function () {
-	console.log('Serwer nasłuchuje na porcie numer', 3000)
+	console.log('Serwer nasłuchuje na porcie numer', 3000);
 });
 
-app.post('/api/posts', function (req, res, next) {
-	var post = new Post({
-		username: req.body.username,
-		body: req.body.body
-	});
-	post.save(function (err, post){
-		if (err) { return next(err); }
-		res.json(201, post);
-	});
-	/*console.log('Post został przyjęty!');
-	console.log(req.body.username);
-	console.log(req.body.body);
-	res.sendStatus(201);*/
+app.get('/', function (req, res) {
+ res.sendFile('I:/Projects/MEAN app/app/assets/scripts/modules/layouts/posts.html');
 });
+
